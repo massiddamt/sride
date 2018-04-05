@@ -1,0 +1,27 @@
+genome_reference:
+    "basepath": "path_to_references_data"
+    "provider": "ucsc"
+    "release": "hg19"
+
+"genome_fasta": "ucsc.hg19.fasta"
+
+mirna_reference:
+    "basepath": "path_to_references_data"
+    "provider": "mirbase"
+    "release": "22"
+
+mirna_ref: "miRBase_GRCh38_mature.fasta"
+mirna_ref_precursors: "miRBase_GRCh38_precursors.fasta"
+mirna_other: "miRBase_GRCm38_mature.fasta"
+
+
+samples:
+    16_Mock_cell_T0_R1: /u/puva/scratch/incoming/batch17-0046/16_Mock_cell_T0_R1.fastq.gz
+
+rules:
+    trim_galore_se:
+        params: "--small_rna --dont_gzip"
+    mirdeep2_alignment:
+        params: "-e -h -j -l 18 -m -v"
+    mirdeep2__identification:
+        params: "-t hsa -P -b 0 -v"

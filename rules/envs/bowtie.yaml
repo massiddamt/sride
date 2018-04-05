@@ -1,0 +1,4 @@
+channels:
+  - bioconda
+dependencies:
+  - bowtie=1.2.1.1
