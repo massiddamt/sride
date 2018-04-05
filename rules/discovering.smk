@@ -58,7 +58,7 @@ rule mirdeep2_identification:
         miRNAs_ref_precursors=resolve_single_filepath(*references_abs_path(ref='mirna_reference'),
                                 config.get("mirna_ref_precursors"))
     output:
-        touch("mirdeep2.end")
+        touch("discovering/mirdeep2.{sample}.end")
     conda:
         "envs/mirdeep2.yaml"
     params:

@@ -3,7 +3,7 @@ rule all:
         expand("qc/untrimmed_{sample}.html", sample=config.get('samples')),
         expand("qc/trimmed_{sample}.html", sample=config.get('samples')),
         "qc/multiqc.html",
-        "mirdeep2.end"
+        expand("discovering/mirdeep2.{sample}.end", sample=config.get('samples'))
 
 
 include_prefix="rules"
