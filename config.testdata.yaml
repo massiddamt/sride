@@ -17,12 +17,12 @@ mirna_other: "miRBase_GRCm38_mature.fasta"
 
 samples:
     16_Mock_cell_T0_R1: /u/puva/scratch/incoming/batch17-0046/16_Mock_cell_T0_R1.fastq.gz
-    SRR060981: ngs-test-data/reads/smallrna/SRR060981.fastq.gz
-    SRR060982: ngs-test-data/reads/smallrna/SRR060982.fastq.gz
-    SRR060983: ngs-test-data/reads/smallrna/SRR060983.fastq.gz
-    SRR060984: ngs-test-data/reads/smallrna/SRR060984.fastq.gz
-    SRR060985: ngs-test-data/reads/smallrna/SRR060985.fastq.gz
-    SRR060986: ngs-test-data/reads/smallrna/SRR060986.fastq.gz
+    SRR060981: reads/smallrna/SRR060981.fastq.gz
+    SRR060982: reads/smallrna/SRR060982.fastq.gz
+    SRR060983: reads/smallrna/SRR060983.fastq.gz
+    SRR060984: reads/smallrna/SRR060984.fastq.gz
+    SRR060985: reads/smallrna/SRR060985.fastq.gz
+    SRR060986: reads/smallrna/SRR060986.fastq.gz
 
 rules:
     trim_galore_se:

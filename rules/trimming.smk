@@ -10,3 +10,11 @@ rule trim_galore_se:
         "logs/trim_galore/{sample}.log"
     wrapper:
         "0.23.1/bio/trim_galore/se"
+
+rule rename_trimmed_fastq:
+    input:
+        "trimmed/{sample}_trimmed.fq"
+    output:
+        "trimmed/{sample}-trimmed.fq"
+    shell:
+        "mv {input} {output} "

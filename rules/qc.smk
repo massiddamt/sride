@@ -10,7 +10,7 @@ rule fastqc:
 
 rule fastqc_trimmed:
     input:
-       "trimmed/{sample}_trimmed.fq"
+       "trimmed/{sample}-trimmed.fq"
     output:
         html="qc/trimmed_{sample}.html",
         zip="qc/trimmed_{sample}_fastqc.zip"
