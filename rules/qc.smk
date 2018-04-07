@@ -28,6 +28,6 @@ rule multiqc:
     params:
         ""  # Optional: extra parameters for multiqc.
     log:
-        "logs/multiqc.log"
+        "logs/multiqc/multiqc.log"
     wrapper:
         "0.22.0/bio/multiqc"

@@ -59,7 +59,10 @@ rule mirdeep2_identification:
         miRNAs_ref_precursors=resolve_single_filepath(*references_abs_path(ref='mirna_reference'),
                                 config.get("mirna_ref_precursors"))
     output:
-        touch("discovering/mirdeep2.{sample}.end")
+        result_html="discovering/{sample}_result.html",
+        result_csv="discovering/{sample}_result.csv",
+        survey="discovering/{sample}_survey.csv",
+        mrd="discovering/{sample}_output.csv"
     shadow: "shallow"
     conda:
         "envs/mirdeep2.yaml"
@@ -79,7 +82,11 @@ rule mirdeep2_identification:
         "-r {params.prefix} "
         "{params.params} "
         "&> {log} "
-
-
-
-
+        "&& find ./ -name survey.csv -type f -print0 | xargs -0 -I file mv " \
+        "file {output.survey} "
+        "&& find ./ -name output.mrd -type f -print0 | xargs -0 -I file mv " \
+        "file {output.mrd} "
+        "&& find ./ -name result*.html -type f -print0 | xargs -0 -I file mv " \
+        "file {output.result_html} "
+        "&& find ./ -name result*.csv -type f -print0 | xargs -0 -I file mv " \
+        "file {output.result_csv} "
