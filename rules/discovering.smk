@@ -62,7 +62,7 @@ rule mirdeep2_identification:
         result_html="discovering/{sample}_result.html",
         result_csv="discovering/{sample}_result.csv",
         survey="discovering/{sample}_survey.csv",
-        mrd="discovering/{sample}_output.csv"
+        mrd="discovering/{sample}_output.mrd"
     shadow: "shallow"
     conda:
         "envs/mirdeep2.yaml"
