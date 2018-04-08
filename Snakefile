@@ -2,6 +2,7 @@ rule all:
     input:
         expand("qc/untrimmed_{sample}.html", sample=config.get('samples')),
         expand("qc/trimmed_{sample}.html", sample=config.get('samples')),
+        expand("qc/trimmed_{sample}.fastq_screen.txt", sample=config.get('samples')),
         "qc/multiqc.html",
         expand("discovering/{sample}_result.html", sample=config.get('samples')),
         expand("discovering/{sample}_result.csv", sample=config.get('samples')),
