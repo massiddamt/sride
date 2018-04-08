@@ -22,10 +22,10 @@ rule bowtie_build_index:
 rule mirdeep2_alignment:
     input:
         "trimmed/{sample}-trimmed.fq",
-        index_ready="bowtie_index_ready",
+        index_ready="bowtie_index_ready"
     output:
         fa=temp("discovering/{sample}_deepseq.fa"),
-        arf="discovering/{sample}_reads_vs_genome.arf"
+        arf=temp("discovering/{sample}_reads_vs_genome.arf")
     shadow: "shallow"
     conda:
         "envs/mirdeep2.yaml"
