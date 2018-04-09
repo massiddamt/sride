@@ -6,7 +6,7 @@ rule fastqc:
         zip="qc/untrimmed_{sample}_fastqc.zip"
     params: ""
     wrapper:
-        "0.22.0/bio/fastqc"
+        "0.23.1/bio/fastqc"
 
 rule fastqc_trimmed:
     input:
@@ -16,21 +16,36 @@ rule fastqc_trimmed:
         zip="qc/trimmed_{sample}_fastqc.zip"
     params: ""
     wrapper:
-        "0.22.0/bio/fastqc"
+        "0.23.1/bio/fastqc"
 
 rule fastq_screen:
     input:
         "trimmed/{sample}-trimmed.fq"
     output:
+        png="qc/trimmed_{sample}.fastq_screen.png",
         txt="qc/trimmed_{sample}.fastq_screen.txt",
-        png="qc/trimmed_{sample}.fastq_screen.png"
+        html="qc/trimmed_{sample}.fastq_screen.html"
+    conda:
+        "envs/fastq_screen.yaml"
     params:
-        fastq_screen_config=fastq_screen.config,
+        fastq_screen_config="../data/fastq_screen.config",
         subset=100000,
         aligner='bowtie2'
     threads: pipeline_cpu_count()
-    wrapper:
-        "0.23.1/bio/fastq_screen"
+    shell:
+        "fastq_screen  "
+        "--force "
+        "--aligner {params.aligner} "
+        "--conf {params.fastq_screen_config} "
+        "--subset {params.subset} "
+        "--threads {threads} "
+        "{input[0]} "
+        "&& find ./ -name *_screen.txt -type f -print0 | xargs -0 -I file mv " \
+        "file {output.txt} "
+        "&& find ./ -name *_screen.png -type f -print0 | xargs -0 -I file mv " \
+        "file {output.png} "
+        "&& find ./ -name *_screen.html -type f -print0 | xargs -0 -I file mv " \
+        "file {output.html} "
 
 rule multiqc:
     input:
@@ -44,4 +59,4 @@ rule multiqc:
     log:
         "logs/multiqc/multiqc.log"
     wrapper:
-        "0.22.0/bio/multiqc"
+        "0.23.1/bio/multiqc"

@@ -1,5 +1,5 @@
 import multiprocessing
-import os.path
+import os
 
 
 def cpu_count():

@@ -6,9 +6,15 @@ Snakemake enabled pipeline for smallRNA-Seq identification
 * Gianmauro Cuccuru
 
 ## Tools
-mirdeep2: https://www.mdc-berlin.de/n-rajewsky#t-data,software&resources
+[trim galore](https://www.bioinformatics.babraham.ac.uk/projects/trim_galore/)
+[fastq-screen](https://www.bioinformatics.babraham.ac.uk/projects/fastq_screen/)
+[mirdeep2](https://www.mdc-berlin.de/n-rajewsky#t-data,software&resources)
 
 ## Usage
+
+### Reference and test data
+
+
 ### Execute workflow
 
 Test your configuration by performing a dry-run via
@@ -21,4 +27,4 @@ Execute the workflow locally via
 
 using `$N` cores
 
-See the [Snakemake documentation](https://snakemake.readthedocs.io) for further details.
+More details at [Snakemake documentation](https://snakemake.readthedocs.io).
