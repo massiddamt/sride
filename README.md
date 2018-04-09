@@ -8,6 +8,7 @@ Snakemake enabled pipeline for smallRNA-Seq identification
 ## Tools
 [trim galore](https://www.bioinformatics.babraham.ac.uk/projects/trim_galore/)
 [fastq-screen](https://www.bioinformatics.babraham.ac.uk/projects/fastq_screen/)
+
 [mirdeep2](https://www.mdc-berlin.de/n-rajewsky#t-data,software&resources)
 
 ## Usage
