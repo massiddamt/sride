@@ -41,10 +41,10 @@ rule fastq_screen:
         "--threads {threads} "
         "{input[0]} "
         "&& find ./ -name *_screen.txt -type f -print0 | xargs -0 -I file mv " \
-        "file {output.txt} "
-        "&& find ./ -name *_screen.png -type f -print0 | xargs -0 -I file mv " \
-        "file {output.png} "
-        "&& find ./ -name *_screen.html -type f -print0 | xargs -0 -I file mv " \
+        "file {output.txt} ;"
+        "find ./ -name *_screen.png -type f -print0 | xargs -0 -I file mv " \
+        "file {output.png} ;"
+        "find ./ -name *_screen.html -type f -print0 | xargs -0 -I file mv " \
         "file {output.html} "
 
 rule multiqc:
