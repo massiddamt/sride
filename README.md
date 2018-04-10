@@ -64,7 +64,7 @@ This pipeline needs a data directory with all the refence and test data. Produce
 
 3. execute snakemake
    ```bash
-   snakemake --use-conda --cores $N
+   snakemake --use-conda --configfile config.yaml --cores $N
    ```
 $n is the number of cores to use.
 At the end, the size of 'data' dir will be about 2.5GB

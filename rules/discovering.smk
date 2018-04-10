@@ -51,13 +51,10 @@ rule mirdeep2_identification:
         fa="discovering/{sample}_deepseq.fa",
         arf="discovering/{sample}_reads_vs_genome.arf",
         genome=resolve_single_filepath(*references_abs_path(ref='genome_reference'),
-                                config.get("genome_fasta")),
-        miRNAs_ref=resolve_single_filepath(*references_abs_path(ref='mirna_reference'),
-                                config.get("mirna_ref")),
-        miRNAs_other=resolve_single_filepath(*references_abs_path(ref='mirna_reference'),
-                                config.get("mirna_other")),
-        miRNAs_ref_precursors=resolve_single_filepath(*references_abs_path(ref='mirna_reference'),
-                                config.get("mirna_ref_precursors"))
+                                       config.get("genome_fasta")),
+        miRNAs_ref=config.get("mirna_ref"),
+        miRNAs_other=config.get("mirna_other"),
+        miRNAs_ref_precursors=config.get("mirna_ref_precursors")
     output:
         result_html="discovering/{sample}_result.html",
         result_csv="discovering/{sample}_result.csv",

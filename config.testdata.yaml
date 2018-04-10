@@ -5,14 +5,9 @@ genome_reference:
 
 "genome_fasta": "ucsc.hg19.fasta"
 
-mirna_reference:
-    "basepath": "path_to_references_data"
-    "provider": "mirbase"
-    "release": "22"
-
-mirna_ref: "miRBase_GRCh38_mature.fasta"
-mirna_ref_precursors: "miRBase_GRCh38_precursors.fasta"
-mirna_other: "miRBase_GRCm38_mature.fasta"
+mirna_ref: "../data/ref/miRNA/miRBase_GRCh38_mature.fasta"
+mirna_ref_precursors: "../data/ref/miRNA/miRBase_GRCh38_precursors.fasta"
+mirna_other: "../data/ref/miRNA/miRBase_GRCm38_mature.fasta"
 
 samples:
     SRR060981: "../data/reads/smallrna/SRR060981.fastq.gz"
