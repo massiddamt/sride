@@ -56,9 +56,9 @@ rule pre_mirdeep2_identification:
         "miRNAs_other",
         "miRNAs_ref_precursors"
     shell:
-        "cp {input[0]} output[0] "
-        "&& cp {input[1]} output[1] "
-        "&& cp {input[2]} output[2] "
+        "cp {input[0]} {output[0]} "
+        "&& cp {input[1]} {output[1]} "
+        "&& cp {input[2]} {output[2]} "
 
 
 rule mirdeep2_identification:
