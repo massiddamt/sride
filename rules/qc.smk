@@ -30,7 +30,8 @@ rule fastq_screen:
     params:
         fastq_screen_config="../data/fastq_screen.config",
         subset=100000,
-        aligner='bowtie2'
+        aligner='bowtie2',
+        prefix=lambda wildcards: wildcards.sample
     threads: pipeline_cpu_count()
     shell:
         "fastq_screen  "
@@ -40,11 +41,11 @@ rule fastq_screen:
         "--subset {params.subset} "
         "--threads {threads} "
         "{input[0]} "
-        "&& find ./ -name *_screen.txt -type f -print0 | xargs -0 -I file mv " \
+        "&& find ./ -name {params.prefix}*_screen.txt -type f -print0 | xargs -0 -I file mv " \
         "file {output.txt} ;"
-        "find ./ -name *_screen.png -type f -print0 | xargs -0 -I file mv " \
+        "find ./ -name {params.prefix}*_screen.png -type f -print0 | xargs -0 -I file mv " \
         "file {output.png} ;"
-        "find ./ -name *_screen.html -type f -print0 | xargs -0 -I file mv " \
+        "find ./ -name {params.prefix}*_screen.html -type f -print0 | xargs -0 -I file mv " \
         "file {output.html} "
 
 rule multiqc:
