@@ -51,7 +51,8 @@ rule multiqc:
     input:
         expand("qc/trimmed_{sample}_fastqc.zip", sample=config.get('samples')),
         expand("qc/trimmed_{sample}.fastq_screen.txt", sample=config.get('samples')),
-        expand("qc/untrimmed_{sample}_fastqc.zip", sample=config.get('samples'))
+        expand("qc/untrimmed_{sample}_fastqc.zip", sample=config.get('samples')),
+        expand("trimmed/{sample}.fastq.gz_trimming_report.txt", sample=config.get('samples'))
     output:
         "qc/multiqc.html"
     params:
