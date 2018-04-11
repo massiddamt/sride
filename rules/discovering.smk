@@ -46,15 +46,30 @@ rule mirdeep2_alignment:
         "&> {log} "
 
 
+rule pre_mirdeep2_identification:
+    input:
+        miRNAs_ref=config.get("mirna_ref"),
+        miRNAs_other=config.get("mirna_other"),
+        miRNAs_ref_precursors=config.get("mirna_ref_precursors")
+    output:
+        "miRNAs_ref",
+        "miRNAs_other",
+        "miRNAs_ref_precursors"
+    shell:
+        "cp {input[0]} output[0] ",
+        "&& cp {input[1]} output[1] ",
+        "&& cp {input[2]} output[2] "
+
+
 rule mirdeep2_identification:
     input:
         fa="discovering/{sample}_deepseq.fa",
         arf="discovering/{sample}_reads_vs_genome.arf",
         genome=resolve_single_filepath(*references_abs_path(ref='genome_reference'),
                                        config.get("genome_fasta")),
-        miRNAs_ref=config.get("mirna_ref"),
-        miRNAs_other=config.get("mirna_other"),
-        miRNAs_ref_precursors=config.get("mirna_ref_precursors")
+        miRNAs_ref="miRNAs_ref",
+        miRNAs_other="miRNAs_other",
+        miRNAs_ref_precursors="miRNAs_ref_precursors"
     output:
         result_html="discovering/{sample}_result.html",
         result_csv="discovering/{sample}_result.csv",
