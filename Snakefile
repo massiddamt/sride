@@ -15,8 +15,6 @@ include_prefix="rules"
 include:
     include_prefix + "/functions.py"
 include:
-    include_prefix + "/notify.smk"
-include:
     include_prefix + "/qc.smk"
 include:
     include_prefix + "/trimming.smk"
