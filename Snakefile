@@ -1,3 +1,7 @@
+##### local rules #####
+
+localrules: all, rename_trimmed_fastq, pre_mirdeep2_identification
+
 rule all:
     input:
         expand("qc/untrimmed_{sample}.html", sample=config.get('samples')),

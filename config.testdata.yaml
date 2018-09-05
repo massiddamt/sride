@@ -1,9 +1,9 @@
 genome_reference:
-    "basepath": "path_to_references_data"
+    "basepath": "../data/reads"
     "provider": "ucsc"
     "release": "hg19"
 
-"genome_fasta": "ucsc.hg19.fasta"
+"genome_fasta": "hg19.fasta"
 
 mirna_ref: "../data/ref/miRNA/miRBase_GRCh38_mature.fasta"
 mirna_ref_precursors: "../data/ref/miRNA/miRBase_GRCh38_precursors.fasta"
