@@ -8,10 +8,10 @@ rule all:
         expand("qc/trimmed_{sample}.html", sample=config.get('samples')),
         expand("qc/trimmed_{sample}.fastq_screen.txt", sample=config.get('samples')),
         "qc/multiqc.html",
-        expand("discovering/{sample}_result.html", sample=config.get('samples')),
-        expand("discovering/{sample}_result.csv", sample=config.get('samples')),
-        expand("discovering/{sample}_survey.csv", sample=config.get('samples')),
-        expand("discovering/{sample}_output.mrd", sample=config.get('samples'))
+        expand("discovering/{sample}/{sample}_result.html", sample=config.get('samples')),
+        expand("discovering/{sample}/{sample}_result.csv", sample=config.get('samples')),
+        expand("discovering/{sample}/{sample}_survey.csv", sample=config.get('samples')),
+        expand("discovering/{sample}/{sample}_output.mrd", sample=config.get('samples'))
 
 
 include_prefix="rules"

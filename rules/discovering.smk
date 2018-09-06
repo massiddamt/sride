@@ -71,10 +71,10 @@ rule mirdeep2_identification:
         miRNAs_other="miRNAs_other",
         miRNAs_ref_precursors="miRNAs_ref_precursors"
     output:
-        result_html="discovering/{sample}_result.html",
-        result_csv="discovering/{sample}_result.csv",
-        survey="discovering/{sample}_survey.csv",
-        mrd="discovering/{sample}_output.mrd"
+        result_html="discovering/{sample}/{sample}_result.html",
+        result_csv="discovering/{sample}/{sample}_result.csv",
+        survey="discovering/{sample}/{sample}_survey.csv",
+        mrd="discovering/{sample}/{sample}_output.mrd"
     shadow: "shallow"
     conda:
         "envs/mirdeep2.yaml"
@@ -96,9 +96,11 @@ rule mirdeep2_identification:
         "&> {log} "
         "&& find ./ -name survey.csv -type f -print0 | xargs -0 -I file mv " \
         "file {output.survey} "
+        "&& cp -r pdf* discovering/{{sample}} "
         "&& find ./ -name output.mrd -type f -print0 | xargs -0 -I file mv " \
         "file {output.mrd} "
         "&& find ./ -name result*.html -type f -print0 | xargs -0 -I file mv " \
         "file {output.result_html} "
         "&& find ./ -name result*.csv -type f -print0 | xargs -0 -I file mv " \
         "file {output.result_csv} "
+
