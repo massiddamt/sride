@@ -94,7 +94,7 @@ rule mirdeep2_identification:
         "-r {params.prefix} "
         "{params.params} "
         "&> {log} "
-        "&& mkdir -p {params.prefix} && cp -r pdf* discovering/{{params.prefix} "
+        "&& mkdir -p {params.prefix} && cp -r pdf* discovering/{params.prefix} "
         "&& find ./ -name survey.csv -type f -print0 | xargs -0 -I file mv " \
         "file {output.survey} "
         "&& find ./ -name output.mrd -type f -print0 | xargs -0 -I file mv " \
