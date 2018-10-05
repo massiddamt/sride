@@ -1,4 +1,4 @@
-# sRIde RNA-Seq
+ # sRIde RNA-Seq
 Snakemake enabled pipeline for smallRNA-Seq identification
 
 ## Authors
