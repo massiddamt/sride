@@ -24,3 +24,5 @@ rules:
         params: "-e -h -j -l 18 -m -v"
     mirdeep2_identification:
         params: "-t hsa -P -b 0 -v"
+    fastq_screen:
+        params: "../data/fastq_screen.config"

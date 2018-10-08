@@ -28,7 +28,7 @@ rule fastq_screen:
     conda:
         "envs/fastq_screen.yaml"
     params:
-        fastq_screen_config="../data/fastq_screen.config",
+        fastq_screen_config=config.get("rules").get("fastq_screen").get("params"),
         subset=100000,
         aligner='bowtie2',
         prefix=lambda wildcards: wildcards.sample
