@@ -24,18 +24,18 @@ rule fastqc_trimmed:
 
 rule fastq_screen:
     input:
-        "trimmed/{sample}-trimmed.fq"
+        "reads/trimmed/{sample}-trimmed.fq.gz"
     output:
-        png="qc/trimmed_{sample}.fastq_screen.png",
-        txt="qc/trimmed_{sample}.fastq_screen.txt",
-        html="qc/trimmed_{sample}.fastq_screen.html"
+        png="qc/fastqscreen/trimmed_{sample}.fastq_screen.png",
+        txt="qc/fastqscreen/trimmed_{sample}.fastq_screen.txt",
+        html="qc/fastqscreen/trimmed_{sample}.fastq_screen.html"
     conda:
-        "envs/fastq_screen.yaml"
+        "../envs/fastq_screen.yaml"
     params:
         fastq_screen_config=config.get("rules").get("fastq_screen").get("params"),
         subset=100000,
         aligner='bowtie2',
-        prefix=lambda wildcards: wildcards.sample
+        prefix="{sample}" #lambda wildcards: wildcards.sample
     threads: pipeline_cpu_count()
     shell:
         "fastq_screen  "
@@ -57,8 +57,8 @@ rule multiqc:
         expand("qc/fastqc/untrimmed_{sample.sample}.html", sample=samples.reset_index().itertuples()),
         expand("qc/fastqc/trimmed_{sample.sample}.html", sample=samples.reset_index().itertuples()),
         expand("reads/trimmed/{sample.sample}.fq.gz_trimming_report.txt", sample=samples.reset_index().itertuples()),
-        # expand("qc/fastqcscreen/trimmed_{sample.sample}.fastq_screen.txt", sample=samples.reset_index().itertuples()),
-        expand("qc/trimmed_{sample}.fastq_screen.txt", sample=config.get('samples')),
+         expand("qc/fastqscreen/trimmed_{sample.sample}.fastq_screen.txt", sample=samples.reset_index().itertuples()),
+        #expand("qc/trimmed_{sample}.fastq_screen.txt", sample=config.get('samples')),
 
     output:
         "qc/multiqc.html"

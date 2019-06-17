@@ -27,7 +27,7 @@ rule trim_galore_se:
     wrapper:
         config.get("wrappers").get("trim_galore_se")
 
-rule post_rename_fastq:
+rule post_rename_fastq_se:
     input:
         r1="reads/trimmed/{sample}_val_1.fq.gz"
     output:

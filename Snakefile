@@ -1,17 +1,29 @@
+import pandas as pd
+from snakemake.utils import validate, min_version
+##### set minimum snakemake version #####
+min_version("5.1.2")
+
+
+##### load config and sample sheets #####
+#configfile: "config.yaml"
+
+## USER FILES ##
+samples = pd.read_csv(config["samples"], index_col="sample", sep="\t")
+## ---------- ##
+
+
+
 ##### local rules #####
 
-localrules: all, rename_trimmed_fastq, pre_mirdeep2_identification
+localrules: all, pre_rename_fastq_se, post_rename_fastq, pre_mirdeep2_identification
 
 rule all:
     input:
-        expand("qc/untrimmed_{sample}.html", sample=config.get('samples')),
-        expand("qc/trimmed_{sample}.html", sample=config.get('samples')),
-        expand("qc/trimmed_{sample}.fastq_screen.txt", sample=config.get('samples')),
         "qc/multiqc.html",
-        expand("discovering/{sample}/{sample}_result.html", sample=config.get('samples')),
-        expand("discovering/{sample}/{sample}_result.csv", sample=config.get('samples')),
-        expand("discovering/{sample}/{sample}_survey.csv", sample=config.get('samples')),
-        expand("discovering/{sample}/{sample}_output.mrd", sample=config.get('samples'))
+        expand("discovering/{sample.sample}/{sample.sample}_result.html", sample=samples.reset_index().itertuples()),
+        expand("discovering/{sample.sample}/{sample.sample}_result.csv", sample=samples.reset_index().itertuples()),
+        expand("discovering/{sample.sample}/{sample.sample}_survey.csv", sample=samples.reset_index().itertuples()),
+        expand("discovering/{sample.sample}/{sample.sample}_output.mrd", sample=samples.reset_index().itertuples())
 
 
 include_prefix="rules"

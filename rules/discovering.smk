@@ -6,7 +6,7 @@ rule bowtie_build_index:
         touch("bowtie_index_ready"),
         genome="{label}.fa".format(label=get_references_label(ref='genome_reference'))
     conda:
-        "envs/bowtie.yaml"
+        "../envs/bowtie.yaml"
     params:
         label=get_references_label(ref='genome_reference')
     threads: pipeline_cpu_count()
@@ -21,14 +21,14 @@ rule bowtie_build_index:
 
 rule mirdeep2_alignment:
     input:
-        "trimmed/{sample}-trimmed.fq",
+        "reads/trimmed/{sample}-trimmed.fq.gz",
         index_ready="bowtie_index_ready"
     output:
         fa=temp("discovering/{sample}_deepseq.fa"),
         arf=temp("discovering/{sample}_reads_vs_genome.arf")
     shadow: "shallow"
     conda:
-        "envs/mirdeep2.yaml"
+        "../envs/mirdeep2.yaml"
     params:
         params=config.get("rules").get("mirdeep2_alignment").get("params"),
         label=get_references_label(ref='genome_reference')
@@ -77,10 +77,10 @@ rule mirdeep2_identification:
         mrd="discovering/{sample}/{sample}_output.mrd"
     shadow: "shallow"
     conda:
-        "envs/mirdeep2.yaml"
+        "../envs/mirdeep2.yaml"
     params:
         params=config.get("rules").get("mirdeep2_identification").get("params"),
-        prefix=lambda wildcards: wildcards.sample
+        prefix="{sample}" #lambda wildcards: wildcards.sample
     log:
         "logs/mirdeep2/{sample}_identification.log"
     shell:
