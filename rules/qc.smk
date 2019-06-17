@@ -1,22 +1,26 @@
 rule fastqc:
     input:
-       lambda wildcards: config["samples"][wildcards.sample]
+       "reads/untrimmed/{sample}.fq.gz"
     output:
-        html="qc/untrimmed_{sample}.html",
-        zip="qc/untrimmed_{sample}_fastqc.zip"
+        html="qc/fastqc/untrimmed_{sample}.html",
+        zip="qc/fastqc/untrimmed_{sample}_fastqc.zip"
+    log:
+        "logs/fastqc/untrimmed/{sample}.log"
     params: ""
     wrapper:
-        "0.23.1/bio/fastqc"
+        config.get("wrappers").get("fastqc")
 
 rule fastqc_trimmed:
     input:
-       "trimmed/{sample}-trimmed.fq"
+       "reads/trimmed/{sample}-trimmed.fq.gz"
     output:
-        html="qc/trimmed_{sample}.html",
-        zip="qc/trimmed_{sample}_fastqc.zip"
+        html="qc/fastqc/trimmed_{sample}.html",
+        zip="qc/fastqc/trimmed_{sample}_fastqc.zip"
+    log:
+        "logs/fastqc/trimmed/{sample}.log"
     params: ""
     wrapper:
-        "0.23.1/bio/fastqc"
+        config.get("wrappers").get("fastqc")
 
 rule fastq_screen:
     input:
@@ -50,15 +54,26 @@ rule fastq_screen:
 
 rule multiqc:
     input:
-        expand("qc/trimmed_{sample}_fastqc.zip", sample=config.get('samples')),
+        expand("qc/fastqc/untrimmed_{sample.sample}.html", sample=samples.reset_index().itertuples()),
+        expand("qc/fastqc/trimmed_{sample.sample}.html", sample=samples.reset_index().itertuples()),
+        expand("reads/trimmed/{sample.sample}.fq.gz_trimming_report.txt", sample=samples.reset_index().itertuples()),
+        # expand("qc/fastqcscreen/trimmed_{sample.sample}.fastq_screen.txt", sample=samples.reset_index().itertuples()),
         expand("qc/trimmed_{sample}.fastq_screen.txt", sample=config.get('samples')),
-        expand("qc/untrimmed_{sample}_fastqc.zip", sample=config.get('samples')),
-        expand("trimmed/{sample}.fastq.gz_trimming_report.txt", sample=config.get('samples'))
+
     output:
         "qc/multiqc.html"
     params:
-        ""  # Optional: extra parameters for multiqc.
+        params=config.get("rules").get("multiqc").get("arguments"),
+        outdir="qc",
+        outname="multiqc.html"
+    conda:
+        "../envs/multiqc.yaml"
     log:
         "logs/multiqc/multiqc.log"
-    wrapper:
-        "0.23.1/bio/multiqc"
+    shell:
+        "multiqc "
+        "{input} "
+        "{params.params} "
+        "-o {params.outdir} "
+        "-n {params.outname} "
+        ">& {log}"
