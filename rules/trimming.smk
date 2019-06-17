@@ -16,7 +16,7 @@ rule trim_galore_se:
     input:
         "reads/untrimmed/{sample}.fq.gz"
     output:
-        temp("reads/trimmed/{sample}_val_1.fq.gz"),
+        temp("reads/trimmed/{sample}_val_1.fq"),
         "reads/trimmed/{sample}.fq.gz_trimming_report.txt"
     params:
         extra=config.get("rules").get("trim_galore_se").get("arguments")
@@ -29,8 +29,8 @@ rule trim_galore_se:
 
 rule post_rename_fastq_se:
     input:
-        r1="reads/trimmed/{sample}_val_1.fq.gz"
+        r1="reads/trimmed/{sample}_val_1.fq"
     output:
-        r1="reads/trimmed/{sample}-trimmed.fq.gz"
+        r1="reads/trimmed/{sample}-trimmed.fq"
     shell:
         "mv {input.r1} {output.r1}"

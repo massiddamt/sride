@@ -1,28 +1,32 @@
 genome_reference:
-    "basepath": "../data/reads"
-    "provider": "ucsc"
-    "release": "hg19"
+    basepath: "../data/reads"
+    provider: "ucsc"
+    release: "hg19"
 
-"genome_fasta": "hg19.fasta"
+genome_fasta: "hg19.fasta"
 
 mirna_ref: "../data/ref/miRNA/miRBase_main_mature.fasta"
 mirna_ref_precursors: "../data/ref/miRNA/miRBase_main_precursors.fasta"
 mirna_other: "../data/ref/miRNA/miRBase_other_mature.fasta"
 
-samples:
-    SRR060981: "../data/reads/smallrna/SRR060981.fastq.gz"
-    SRR060982: "../data/reads/smallrna/SRR060982.fastq.gz"
-    SRR060983: "../data/reads/smallrna/SRR060983.fastq.gz"
-    SRR060984: "../data/reads/smallrna/SRR060984.fastq.gz"
-    SRR060985: "../data/reads/smallrna/SRR060985.fastq.gz"
-    SRR060986: "../data/reads/smallrna/SRR060986.fastq.gz"
+
 
 rules:
     trim_galore_se:
         params: "--small_rna --dont_gzip"
+    multiqc:
+        arguments: "--force "
     mirdeep2_alignment:
         params: "-e -h -j -l 18 -m -v"
     mirdeep2_identification:
         params: "-t hsa -P -b 0 -v"
     fastq_screen:
         params: "../data/fastq_screen.config"
+
+
+wrappers:
+    fastqc: "fastqc_wrapper"
+    trim_galore_se: "trim_galore_se_wrapper"
+    trim_galore_pe: "trim_galore_pe_wrapper"
+
+samples: "samples.tsv"

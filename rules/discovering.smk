@@ -21,7 +21,7 @@ rule bowtie_build_index:
 
 rule mirdeep2_alignment:
     input:
-        "reads/trimmed/{sample}-trimmed.fq.gz",
+        "reads/trimmed/{sample}-trimmed.fq",
         index_ready="bowtie_index_ready"
     output:
         fa=temp("discovering/{sample}_deepseq.fa"),

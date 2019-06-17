@@ -12,7 +12,7 @@ rule fastqc:
 
 rule fastqc_trimmed:
     input:
-       "reads/trimmed/{sample}-trimmed.fq.gz"
+       "reads/trimmed/{sample}-trimmed.fq"
     output:
         html="qc/fastqc/trimmed_{sample}.html",
         zip="qc/fastqc/trimmed_{sample}_fastqc.zip"
@@ -24,7 +24,7 @@ rule fastqc_trimmed:
 
 rule fastq_screen:
     input:
-        "reads/trimmed/{sample}-trimmed.fq.gz"
+        "reads/trimmed/{sample}-trimmed.fq"
     output:
         png="qc/fastqscreen/trimmed_{sample}.fastq_screen.png",
         txt="qc/fastqscreen/trimmed_{sample}.fastq_screen.txt",
