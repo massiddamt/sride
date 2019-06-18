@@ -59,6 +59,10 @@ rule multiqc:
         expand("reads/trimmed/{sample.sample}.fq.gz_trimming_report.txt", sample=samples.reset_index().itertuples()),
          expand("qc/fastqscreen/trimmed_{sample.sample}.fastq_screen.txt", sample=samples.reset_index().itertuples()),
         #expand("qc/trimmed_{sample}.fastq_screen.txt", sample=config.get('samples')),
+        expand("mir_trace/{sample.sample}/{sample.sample}-mirtrace-results.json", sample=samples.reset_index().itertuples()),
+        expand("mir_trace/{sample.sample}/{sample.sample}-mirtrace-stats-length.tsv", sample=samples.reset_index().itertuples()),
+        expand("mir_trace/{sample.sample}/{sample.sample}-mirtrace-stats-contamination_basic.tsv", sample=samples.reset_index().itertuples()),
+        expand("mir_trace/{sample.sample}/{sample.sample}-mirtrace-stats-mirna-complexity.tsv", sample=samples.reset_index().itertuples())
 
     output:
         "qc/multiqc.html"
