@@ -1,11 +1,7 @@
 
-def get_fastq(wildcards,samples,read_pair='fq'):
-    return samples.loc[wildcards.sample,
-                     [read_pair]].dropna()[0]
-
 rule pre_rename_fastq_se:
     input:
-        r1=lambda wildcards: get_fastq(wildcards, samples, read_pair="fq1")
+        r1="reads/umi_extract/{sample}_umi.fq.gz"
     output:
         r1="reads/untrimmed/{sample}.fq.gz"
     shell:
