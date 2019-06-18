@@ -1,10 +1,9 @@
 rule bowtie_build_index:
     input:
-        resolve_single_filepath(*references_abs_path(ref='genome_reference'),
-                                config.get("genome_fasta"))
+        resolve_single_filepath(*references_abs_path(ref='references'), config.get("genome_fasta"))
     output:
         touch("bowtie_index_ready"),
-        genome="{label}.fa".format(label=get_references_label(ref='genome_reference'))
+        genome="{label}.fa".format(label=get_references_label(ref='references'))
     conda:
         "../envs/bowtie.yaml"
     params:
@@ -31,7 +30,7 @@ rule mirdeep2_alignment:
         "../envs/mirdeep2.yaml"
     params:
         params=config.get("rules").get("mirdeep2_alignment").get("params"),
-        label=get_references_label(ref='genome_reference')
+        label=get_references_label(ref='references')
     log:
         "logs/mirdeep2/{sample}_alignment.log"
     threads: pipeline_cpu_count()
@@ -65,8 +64,7 @@ rule mirdeep2_identification:
     input:
         fa="discovering/{sample}_deepseq.fa",
         arf="discovering/{sample}_reads_vs_genome.arf",
-        genome=resolve_single_filepath(*references_abs_path(ref='genome_reference'),
-                                       config.get("genome_fasta")),
+        genome=resolve_single_filepath(*references_abs_path(ref='references'), config.get("genome_fasta")),
         miRNAs_ref="miRNAs_ref",
         miRNAs_other="miRNAs_other",
         miRNAs_ref_precursors="miRNAs_ref_precursors"

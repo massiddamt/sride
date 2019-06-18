@@ -1,9 +1,9 @@
-genome_reference:
-    basepath: "../data/reads"
-    provider: "ucsc"
-    release: "hg19"
+references:
+    basepath: "path_to_references_data"
+    provider: "reference_provider"
+    release: "reference_release"
 
-genome_fasta: "hg19.fasta"
+genome_fasta: "_genome_fasta"
 
 mirna_ref: "../data/ref/miRNA/miRBase_main_mature.fasta"
 mirna_ref_precursors: "../data/ref/miRNA/miRBase_main_precursors.fasta"
@@ -35,6 +35,5 @@ rules:
 wrappers:
     fastqc: "fastqc_wrapper"
     trim_galore_se: "trim_galore_se_wrapper"
-    trim_galore_pe: "trim_galore_pe_wrapper"
 
-samples: "samples.tsv"
+samples: samples.tsv

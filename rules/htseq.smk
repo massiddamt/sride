@@ -2,7 +2,7 @@ rule bowtie_mapping:
     input:
         sample="reads/trimmed/{sample}-trimmed.fq",
         index_ready="bowtie_index_ready",
-        fa=resolve_single_filepath(*references_abs_path(ref='genome_reference'), config.get("genome_fasta"))
+        fa=resolve_single_filepath(*references_abs_path(ref='references'), config.get("genome_fasta"))
     output:
         bam="reads/aligned/{sample}.bam"
     params:
