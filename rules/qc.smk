@@ -12,7 +12,7 @@ rule fastqc:
 
 rule fastqc_trimmed:
     input:
-       "reads/trimmed/{sample}-trimmed.fq"
+       "reads/trimmed/{sample}-R1-trimmed.fq"
     output:
         html="qc/fastqc/trimmed_{sample}.html",
         zip="qc/fastqc/trimmed_{sample}_fastqc.zip"
@@ -21,6 +21,7 @@ rule fastqc_trimmed:
     params: ""
     wrapper:
         config.get("wrappers").get("fastqc")
+
 
 rule fastq_screen:
     input:
@@ -54,15 +55,15 @@ rule fastq_screen:
 
 rule multiqc:
     input:
-        expand("qc/fastqc/untrimmed_{sample.sample}.html", sample=samples.reset_index().itertuples()),
-        expand("qc/fastqc/trimmed_{sample.sample}.html", sample=samples.reset_index().itertuples()),
+        expand("qc/fastqc/untrimmed_{sample.sample}_fastqc.zip", sample=samples.reset_index().itertuples()),
+        expand("qc/fastqc/trimmed_{sample.sample}_fastqc.zip", sample=samples.reset_index().itertuples()),
         expand("reads/trimmed/{sample.sample}.fq.gz_trimming_report.txt", sample=samples.reset_index().itertuples()),
-         expand("qc/fastqscreen/trimmed_{sample.sample}.fastq_screen.txt", sample=samples.reset_index().itertuples()),
+        #expand("qc/fastqscreen/trimmed_{sample.sample}.fastq_screen.txt", sample=samples.reset_index().itertuples()),
         #expand("qc/trimmed_{sample}.fastq_screen.txt", sample=config.get('samples')),
-        expand("mir_trace/{sample.sample}/{sample.sample}-mirtrace-results.json", sample=samples.reset_index().itertuples()),
-        expand("mir_trace/{sample.sample}/{sample.sample}-mirtrace-stats-length.tsv", sample=samples.reset_index().itertuples()),
-        expand("mir_trace/{sample.sample}/{sample.sample}-mirtrace-stats-contamination_basic.tsv", sample=samples.reset_index().itertuples()),
-        expand("mir_trace/{sample.sample}/{sample.sample}-mirtrace-stats-mirna-complexity.tsv", sample=samples.reset_index().itertuples())
+        expand("mir_trace/{sample.sample}/mirtrace-results.json", sample=samples.reset_index().itertuples()),
+        expand("mir_trace/{sample.sample}/mirtrace-stats-length.tsv", sample=samples.reset_index().itertuples()),
+        expand("mir_trace/{sample.sample}/mirtrace-stats-contamination_basic.tsv", sample=samples.reset_index().itertuples()),
+        expand("mir_trace/{sample.sample}/mirtrace-stats-mirna-complexity.tsv", sample=samples.reset_index().itertuples())
 
     output:
         "qc/multiqc.html"
