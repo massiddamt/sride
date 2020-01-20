@@ -8,9 +8,7 @@ genome_fasta: "_genome_fasta"
 mirna_ref: "../data/ref/miRNA/miRBase_main_mature.fasta"
 mirna_ref_precursors: "../data/ref/miRNA/miRBase_main_precursors.fasta"
 mirna_other: "../data/ref/miRNA/miRBase_other_mature.fasta"
-
-##TODO: how to download and prepare this file
-htseq_gff: "../data/ref/gff_file"
+htseq_gff: "../data/ref/mirbase/file.gff3"
 
 
 rules:
@@ -26,14 +24,19 @@ rules:
         params: "../data/fastq_screen.config"
     bowtie_mapping:
         params: "-v 2 -m 10 -a"
+        basename: "ucsc_hg19 " ## to edit
     mir_trace:
         params: "-s hsa"
     htseq:
         params: "-f bam -r pos -t miRNA -i Name"
 
+### common codes: Homo sapiens= hsa; Mus musculus=mmu; Rattus norvegicus=rno
 
 wrappers:
     fastqc: "fastqc_wrapper"
     trim_galore_se: "trim_galore_se_wrapper"
 
 samples: samples.tsv
+units: units.tsv
+reheader: reheader.tsv
+internal_sid: "LIMS"
