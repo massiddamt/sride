@@ -4,7 +4,7 @@ def get_fastq(wildcards,samples,read_pair='fq'):
 
 rule UMI_tools:
     input:
-        lambda wildcards: get_fastq(wildcards, samples, read_pair="fq1")
+        "reads/untrimmed/merged/{sample}-R1.fq.gz"
     output:
         "reads/umi_extract/{sample}_umi.fq.gz"
     conda:
@@ -20,4 +20,3 @@ rule UMI_tools:
         "--bc-pattern='.+(?P<discard_1>AACTGTAGGCACCATCAAT)"
         "{{s<=2}}"
         "(?P<umi_1>.{{12}})(?P<discard_2>.+)'"
-
