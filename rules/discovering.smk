@@ -7,7 +7,7 @@ rule bowtie_build_index:
     conda:
         "../envs/bowtie.yaml"
     params:
-        label=get_references_label(ref='genome_reference')
+        label=get_references_label(ref='references')
     threads: pipeline_cpu_count()
     log: "logs/bowtie/build_index.log"
     shell:
@@ -20,7 +20,7 @@ rule bowtie_build_index:
 
 rule mirdeep2_alignment:
     input:
-        "reads/trimmed/{sample}-trimmed.fq",
+        "reads/trimmed/{sample}-R1-trimmed.fq",
         index_ready="bowtie_index_ready"
     output:
         fa=temp("discovering/{sample}_deepseq.fa"),
@@ -101,4 +101,5 @@ rule mirdeep2_identification:
         "file {output.result_html} "
         "&& find ./ -name result*.csv -type f -print0 | xargs -0 -I file mv " \
         "file {output.result_csv} "
+
 
